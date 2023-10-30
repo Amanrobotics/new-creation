@@ -1,0 +1,282 @@
+
+1
+/******************************************************************************
+2
+​
+3
+                            Online Java Compiler.
+4
+                Code, Compile, Run and Debug java program online.
+5
+Write your code in this editor and press "Run" button to execute it.
+6
+​
+7
+*******************************************************************************/
+8
+import java .io.*;
+9
+import java.util.*;
+10
+class Laptop { 
+11
+    private int laptopId; 
+12
+    private String brand; 
+13
+    private String osType;
+14
+    private double price;
+15
+    private int rating;
+16
+    public Laptop(int laptopId,String brand,String osType,double price,int rating) 
+17
+    {
+18
+       this.laptopId=laptopId; 
+19
+       this.brand=brand; 
+20
+       this.osType=osType;
+21
+       this.price=price; 
+22
+       this.rating=rating;
+23
+      } 
+24
+        public int getLaptopId() { return laptopId; }
+25
+        public void setLaptopId() { this.laptopId=laptopId; } 
+26
+        public String getBrand() { return brand; }
+27
+        public void setBrand() { this.brand=brand; }
+28
+        public String getOsType() { return osType; } 
+29
+        public void setOsType() { this.osType=osType; }
+30
+        public double getPrice() { return price; }
+31
+        public void setPrice() { this.price=price; }
+32
+        public int getRating() { return rating; }
+33
+        public void setRating() { this.rating=rating; } 
+34
+    
+35
+} 
+36
+public class Main {
+37
+    public static void main(String [] args) 
+38
+    { 
+39
+    Scanner sc=new Scanner(System.in);
+40
+    Laptop [] lap=new Laptop[4]; 
+41
+    for(int i=0;i<lap.length;i++) 
+42
+    { int a=sc.nextInt();
+43
+     sc.nextLine();
+44
+      String b=sc.nextLine();
+45
+      String c=sc.nextLine();
+46
+     double d=sc.nextDouble();
+47
+     int e=sc.nextInt();
+48
+     sc.nextLine();
+49
+     lap[i]=new Laptop(a,b,c,d,e);
+50
+    }
+51
+       String input1=sc.nextLine();
+52
+       String input2=sc.nextLin e();
+53
+       int ans1=countOfLaptopsByBrand(lap,input1);
+54
+       if(ans1==0)
+55
+       {
+56
+          System.out.println("The given brand is not available");
+57
+    }
+58
+       else
+59
+       {
+60
+          System.out.println(ans1);
+61
+       }
+62
+       Laptop [] ans=searchLaptopByOsType(lap,input2);
+63
+          if(ans==null)
+64
+          {
+65
+             System.out.println("the given os is not available");
+66
+          }
+67
+          else
+68
+          {
+69
+             for(Laptop ans2:ans)
+70
+             {
+71
+                System.out.println(ans2.getLaptopId());
+72
+                System.out.println(ans2.getRating());
+73
+             }
+74
+          }
+75
+       }
+76
+   public static int countOfLaptopsByBrand(Laptop [] lap,String input1)
+77
+   {
+78
+      int count =0;
+79
+      for(int i=0;i<lap.length;i++)
+80
+      {
+81
+         if(lap[i].getBrand().equalsIgnoreCase(input1) && lap[i].getRating()>3)
+82
+         {
+83
+            count+=1;
+84
+         }
+85
+      }
+86
+      return(count);
+87
+   }
+88
+    public static Laptop[] searchLaptopByOsType(Laptop [] lap,String input2) 
+89
+    { 
+90
+        Laptop [] ans=new Laptop[0];
+91
+        int flag=0; 
+92
+        for (int i=0;i<lap.length;i++) 
+93
+        { 
+94
+            if(lap[i].getOsType().equalsIgnoreCase(input2))
+95
+            { 
+96
+                ans=Arrays.copyOf(ans,ans.length+1);
+97
+                ans[ans.length-1]=lap[i];
+98
+                flag=1; 
+99
+            }
+100
+            } 
+101
+       if(flag==0)
+102
+            { 
+103
+                return(null); 
+104
+            }
+105
+       else 
+106
+            {
+107
+               Laptop temp=null;
+108
+               for(int i=0;i<ans.length;i++)
+109
+               {
+110
+                  for(int j=0;j<ans.length-1;j++)
+111
+                  {
+112
+                     //if(lap[j].getLaptopId()<lap[j+1].getLaptopId())
+113
+                     if(ans[j].getLaptopId()<ans[j+1].getLaptopId())
+114
+                     {
+115
+                        temp=ans[j];
+116
+                        ans[j]=ans[j+1];
+117
+                        ans[j+1]=temp;
+118
+                     }
+119
+                  }
+120
+               }
+121
+               //Arrays.sort(ans,Collections.reverseOrder());     
+122
+          return(ans);
+123
+                } 
+124
+    } 
+125
+    }
+	
+
+options	
+args: +command-line argument
+stdin (also visualizes consumption of StdIn)
+123
+HP
+Windows
+35000
+5
+124
+Apple
+MacOs
+70000
+5
+125
+Dell
+Ubuntu
+30000
+4
+126
+HP
+windows
+40000
+4
+HP
+windows
+40000
+4
+HP
+windows
